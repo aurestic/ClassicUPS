@@ -278,25 +278,20 @@ class Shipment(object):
         shipment_service_options = {}
 
         if 'email' in from_addr and 'email' in to_addr:
+
+            emails_to_motify = [
+                {'EMailAddress': to_addr['email']},
+                {'EMailAddress':  from_addr['email']}
+            ]
+
             shipment_service_options = {
-                'Notification': [{
-                    'NotificationCode': 6,
-                    'EMailMessage': [{
-                        'EMailAddress': to_addr['email'],
-                    }, {
-                        'EMailAddress':  from_addr['email'],
-                    }],
-                }, {
-                    'NotificationCode': 7,
-                    'EMailMessage': [{
-                        'EMailAddress': from_addr['email'],
-                    }]
-                }, {
-                    'NotificationCode': 8,
-                    'EMailMessage': [{
-                        'EMailAddress': from_addr['email'],
-                    }]
-                }],
+                'Notification': [
+                    {'NotificationCode': 2, 'EMailMessage': emails_to_motify},
+                    {'NotificationCode': 5, 'EMailMessage': emails_to_motify},
+                    {'NotificationCode': 6, 'EMailMessage': emails_to_motify},
+                    {'NotificationCode': 7, 'EMailMessage': emails_to_motify},
+                    {'NotificationCode': 8, 'EMailMessage': emails_to_motify},
+                ]
             }
 
         for package in packages:
