@@ -279,14 +279,12 @@ class Shipment(object):
 
         if 'email' in from_addr and 'email' in to_addr:
 
-            emails_to_motify = [
-                {'EMailAddress': to_addr['email']},
-                {'EMailAddress':  from_addr['email']}
-            ]
+            emails_to_motify = {
+                'EMailAddress': [from_addr['email'], to_addr['email']]
+            }
 
             shipment_service_options = {
                 'Notification': [
-                    {'NotificationCode': 2, 'EMailMessage': emails_to_motify},
                     {'NotificationCode': 5, 'EMailMessage': emails_to_motify},
                     {'NotificationCode': 6, 'EMailMessage': emails_to_motify},
                     {'NotificationCode': 7, 'EMailMessage': emails_to_motify},
